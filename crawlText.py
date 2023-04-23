@@ -9,10 +9,18 @@ if __name__ == '__main__':
 
         article_content = html_content_bs.find(name='article')
 
-        reference_node = article_content.find(class_='pager')
-        for node in reference_node.find_all_next():
+        # remove <ul class="pager"> and following node
+        pager_node = article_content.find(class_='pager')
+        for node in pager_node.find_all_next():
             node.extract()
-        reference_node.extract()
+        pager_node.extract()
+
+        # remove reference node if exist
+        reference_node = article_content.find(name='h2', id='参考')
+        if reference_node is not None:
+            for node in reference_node.find_all_next():
+                node.extract()
+            reference_node.extract()
 
         article_title = article_content.find(name='h1').string
         text_content = article_content.text.strip()
