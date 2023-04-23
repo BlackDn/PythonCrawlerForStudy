@@ -17,7 +17,7 @@ if __name__ == '__main__':
         article_title = article_content.find(name='h1').string
         text_content = article_content.text.strip()
 
-        with open(f'{article_title}', 'w') as file:
+        with open(f'{article_title.replace("/","")}', 'w') as file:
             file.write(text_content)
 
 
