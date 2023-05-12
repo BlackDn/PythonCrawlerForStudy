@@ -21,10 +21,10 @@ if __name__ == '__main__':
         response_page_json = response_page.json()
         img_list = response_page_json['data']['items']
 
-        # only crawl 5 images in each page
-        for img_index in range(5):
-            for index, pics in enumerate(img_list[img_index]['pictures']):
-                img_name = f'page{page_number}-img{img_index}-{index}.jpg'
+        # crawl all images in each page
+        for item_index, img_item in enumerate(img_list):
+            for pic_index, pics in enumerate(img_item['pictures']):
+                img_name = f'page{page_number}-img{item_index}-{pic_index}.jpg'
 
                 if pics['img_width'] < pics['img_height']:
                     print(f'skip {img_name}')
@@ -36,4 +36,21 @@ if __name__ == '__main__':
                 with open(f'{dir_path}{img_name}', 'wb') as f:
                     f.write(img_response.content)
                 print(f'download {img_name} successfully')
+
+
+        # only crawl 5 images in each page
+        # for img_index in range(5):
+        #     for index, pics in enumerate(img_list[img_index]['pictures']):
+        #         img_name = f'page{page_number}-img{img_index}-{index}.jpg'
+        #
+        #         if pics['img_width'] < pics['img_height']:
+        #             print(f'skip {img_name}')
+        #             break
+        #
+        #         img_url = pics['img_src']
+        #         img_response = requests.get(img_url)
+        #
+        #         with open(f'{dir_path}{img_name}', 'wb') as f:
+        #             f.write(img_response.content)
+        #         print(f'download {img_name} successfully')
 
