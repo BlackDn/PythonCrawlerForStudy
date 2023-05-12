@@ -14,6 +14,7 @@ if __name__ == '__main__':
     # only crawl 3 pages
     for current_page in range(3):
         page_number = current_page
+        print(f'We are in page {page_number}')
 
         response_page = requests.get(url_to_get_page)
         response_page_json = response_page.json()
@@ -29,4 +30,5 @@ if __name__ == '__main__':
 
                 with open(f'{dir_path}{img_name}', 'wb') as f:
                     f.write(img_response.content)
+                print(f'download {img_name} successfully')
 
