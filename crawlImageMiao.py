@@ -11,6 +11,22 @@ if __name__ == '__main__':
     page_number = 0
     url_to_get_page = f'https://api.bilibili.com/x/dynamic/feed/draw/doc_list?uid=6823116&page_num={page_number}&page_size=30&biz=all&jsonp=jsonp'
 
-    for current_page in range(10):
+    # only crawl 3 pages
+    for current_page in range(3):
         page_number = current_page
+
         response_page = requests.get(url_to_get_page)
+        response_page_json = response_page.json()
+        img_list = response_page_json['data']['items']
+
+        # only crawl 5 images in each page
+        for img_index in range(5):
+            for index, pics in enumerate(img_list[img_index]['pictures']):
+                img_name = f'page{page_number}-img{img_index}-{index}.jpg'
+
+                img_url = pics['img_src']
+                img_response = requests.get(img_url)
+
+                with open(f'{dir_path}{img_name}', 'wb') as f:
+                    f.write(img_response.content)
+
