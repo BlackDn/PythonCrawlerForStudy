@@ -25,6 +25,10 @@ if __name__ == '__main__':
             for index, pics in enumerate(img_list[img_index]['pictures']):
                 img_name = f'page{page_number}-img{img_index}-{index}.jpg'
 
+                if pics['img_width'] < pics['img_height']:
+                    print(f'skip {img_name}')
+                    break
+
                 img_url = pics['img_src']
                 img_response = requests.get(img_url)
 
