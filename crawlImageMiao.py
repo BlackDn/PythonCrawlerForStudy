@@ -8,11 +8,12 @@ if __name__ == '__main__':
     if not os.path.exists(dir_path):
         os.mkdir(dir_path)
 
+    # crawl pages from page_number to last_page_number
     page_number = 0
+    last_page_number = 10
     url_to_get_page = f'https://api.bilibili.com/x/dynamic/feed/draw/doc_list?uid=6823116&page_num={page_number}&page_size=30&biz=all&jsonp=jsonp'
 
-    # only crawl 3 pages
-    for current_page in range(3):
+    for current_page in range(last_page_number):
         page_number = current_page
         print(f'We are in page {page_number}')
 
